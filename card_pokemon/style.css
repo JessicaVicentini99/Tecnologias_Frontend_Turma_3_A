@@ -1,0 +1,31 @@
+body {
+    font-family: Arial;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    background-color: white;
+    width: 300px;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.345);
+}
+
+.card img {
+    width: 100%;
+    transition: transform 0.3s;
+}
+
+.card img:hover {
+    transform: scale(1.05)
+}
+
+.mais {
+    display: none;
+    text-align: left;
+}
