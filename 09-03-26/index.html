@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Pratica DOM</title>
+    </head>
+    <body>
+        <h1 id="titulo">Olá, Mundo!</h1>
+        <h2 class="texto-decorado">Como vai</h2>
+        <h2 class="texto-decorado">Como vai 2</h2>
+    </body>
+</html>
+<script>
+    console.log("Pratica DOM")
+    //Vamos recuperar a tag H1 no js
+    //utilizando o ID
+    let titulo_h1 = document.getElementById('titulo')
+    console.log(titulo_h1)
+    //Vamos recuperar só a mensagem dentro da tag
+    console.log(titulo_h1.textContent)
+    //Utilizando a classe volta um HTMLCollection
+    let titulo_h2 = document.getElementsByClassName('texto-decorado')
+    console.log(titulo_h2)
+    console.log(titulo_h2[1])
+    console.log(titulo_h2[1].textContent)
+
+    let titulo_h2_id = document.querySelector("#titulo")
+    let titulo_h2_class = document.querySelector(".texto-decorado")
+    console.log("Query selector")
+    console.log(titulo_h2_id)
+    console.log(titulo_h2_class)
+
+    let titulo_h2_class_all = document.querySelectorAll(".texto-decorado")
+    console.log(titulo_h2_class_all)
+    console.log(titulo_h2_class_all[0])
+
+    let titulo_tag_h2 = document.getElementsByTagName("h2")
+    console.log(titulo_tag_h2)
+</script>
