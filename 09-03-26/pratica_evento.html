@@ -2,20 +2,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Pratica DOM</title>
+        <title>
+            Pratica Eventos
+        </title>
     </head>
     <body>
-        <h1 id="titulo">Olá, Mundo!</h1>
-        <!-- <button id="botao">Clique Aqui</button> -->
-        <button onclick="alert('O botao foi clickado')" id="botao">Clique Aqui</button>
-
+        <!-- Forma 1 não recomendada -->
+        <!-- <button onclick="alert('Botão Clicado')">Clique Aqui</button> -->
+        <!-- Forma 2 e 3 -->
+        <button id="meu_botao">Clique Aqui</button>
     </body>
 </html>
 <script>
-    //Como capturar evento de click
-    // let botao = document.getElementById("botao") 
+    // Forma 2
+    // let botao = document.getElementById("meu_botao")
     // console.log(botao)
     // botao.onclick = function() {
-    //     alert("O botao foi clickado")
-    // } 
+    //     alert('Botão clicado')
+    // }
+    // Forma 3
+    let botao = document.getElementById("meu_botao")
+    botao.addEventListener("click", function() {
+        alert('Botão clicado')
+    })
 </script>

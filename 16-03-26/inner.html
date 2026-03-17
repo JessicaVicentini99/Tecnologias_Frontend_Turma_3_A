@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manipulando o DOM</title>
+    </head>
+    <body>
+        <div id="conteudo">
+            Texto Simples
+        </div>
+        <button id="botao">Inserir html</button>
+    </body>
+</html>
+<script>
+    let botao = document.getElementById("botao")
+    let div = document.getElementById("conteudo")
+
+    botao.addEventListener("click", function() {
+        div.innerHTML = "<strong>Texto em Negrito!</strong>"
+    })
+</script>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Manipulando o DOM</title>
+    </head>
+    <body>
+        <h1>Olá Pessoal</h1>
+        <input id="campo" type="text" placeholder="Digite algo">
+        <button id="botao">Exibir valor</button>
+        <p id="resultado"></p>
+    </body>
+</html>
+<script>
+    let botao = document.getElementById("botao")
+    let campo = document.getElementById("campo")
+    let texto = document.getElementById("resultado")
+
+    botao.addEventListener("click", function() {
+        texto.textContent = "Voce digitou: " + campo.value
+    })
+
+    let titulo = document.querySelector("h1")
+    titulo.style.color = "blue"
+    titulo.style.fontSize = "50px"
+    titulo.style.backgroundColor = "yellow"
+</script>
