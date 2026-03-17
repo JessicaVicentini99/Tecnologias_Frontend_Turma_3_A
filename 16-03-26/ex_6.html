@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Contador de Cliques</title>
+        <style>
+            body {
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .contador {
+                font-size: 30px;
+                margin: 15px;
+            }
+            button {
+                font-size: 20px;
+                padding: 10px;
+                margin: 5px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Contador de clique</h1>
+        <p class="contador">0</p>
+        <button id="decrementar">-</button>
+        <button id="incrementar">+</button>
+    </body>
+</html>
+<script>
+    let contador = document.querySelector(".contador")
+    let botaoMais = document.querySelector("#incrementar")
+    let botaoMenos = document.querySelector("#decrementar")
+    let valor = 0
+    console.log("Valor inicializado")
+
+    botaoMenos.addEventListener("click", function() {
+        if (valor > 0) {
+            valor--
+            contador.textContent = valor
+        }
+    })
+
+    botaoMais.addEventListener("click", function() {
+        valor++
+        contador.textContent = valor
+    })
+</script>
