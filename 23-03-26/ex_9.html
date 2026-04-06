@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Exercicio 9</title>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: center;
+            }
+            .tarefa {
+                background-color: rgb(208, 208, 208);
+                padding: 10px;
+                margin: 5px
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Lista de Tarefas</h1>
+        <input type="text" id="tarefa" placeholder="Digite uma tarefa">
+        <button id="adicionar">Adicionar</button>
+        <button id="limpar">Limpar Lista</button>
+        <h2>Tarefas:</h2>
+        <p class="tarefa">[Espaço Vazio]</p>
+        <p class="tarefa">[Espaço Vazio]</p>
+        <p class="tarefa">[Espaço Vazio]</p>
+        <p class="tarefa">[Espaço Vazio]</p>
+        <p class="tarefa">[Espaço Vazio]</p>
+    </body>
+</html>
+<script>
+    let input_tarefa = document.querySelector("#tarefa")
+    let botao_adicionar = document.querySelector("#adicionar")
+    let botao_limpar = document.querySelector("#limpar")
+    let tarefas = document.querySelectorAll(".tarefa")
+
+    botao_adicionar.addEventListener("click", function() {
+        let tarefa_adicionada = false
+        tarefas.forEach(tarefa => {
+            console.log(tarefa.textContent)
+            if (tarefa.textContent == '[Espaço Vazio]' &&
+                !tarefa_adicionada
+            ) {
+                tarefa.textContent = input_tarefa.value
+                tarefa_adicionada = true
+            }
+        })
+        if (!tarefa_adicionada) {
+            alert("Lista cheia! Limpe antes para adicionar outra tarefa.")
+        }
+    })
+
+    botao_limpar.addEventListener("click", function() {
+        tarefas.forEach(tarefa => {
+            tarefa.textContent = '[Espaço Vazio]'
+        })
+    })
+
+</script>
