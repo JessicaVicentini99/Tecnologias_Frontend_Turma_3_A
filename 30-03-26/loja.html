@@ -65,6 +65,7 @@
                                 <th>Preço</th>
                                 <th>Quantidade</th>
                                 <th>ID</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody id="corpo_tabela">
@@ -86,9 +87,13 @@
             "Content-Type": "application/json"
         }
     })
-    console.log(api)
 
     let formulario = document.getElementById("formulario")
+    let alerta =  document.getElementById("resultado")
+    let botao = document.getElementById("botao_submit")
+    editandoId = null
+    
+    alerta.innerHTML = ""
 
     formulario.addEventListener("submit", async function(e) {
         e.preventDefault()
@@ -97,7 +102,6 @@
         let nome = document.getElementById("nome").value
         let preco = document.getElementById("preco").value
         let quantidade = document.getElementById("quantidade").value
-        let alerta =  document.getElementById("resultado")
 
         let corpo = {
             name: nome,
@@ -106,16 +110,37 @@
                 quantity: quantidade
             }
         }
-        try {    
-            let resposta = await api.post("", corpo)
-            console.log(resposta)
-            alerta.innerHTML = 
-                `<div class="alert alert-success">
-                    Produto Criado! ID: <code>${resposta.data.id}</code>
-                </div>`
+        try {
+            if (editandoId) {
+                // Edicao produto
+                let resposta = await api.put(editandoId, corpo)
+              
+                console.log(resposta)
+                alerta.innerHTML = 
+                    `<div class="alert alert-success">
+                        Produto Editado com sucesso! ID: <code>${editandoId}</code>
+                    </div>`
+                editandoId = null
+
+            } else {
+                //Criacao do produto
+                let resposta = await api.post("", corpo)
+                console.log(resposta)
+                alerta.innerHTML = 
+                    `<div class="alert alert-success">
+                        Produto Criado! ID: <code>${resposta.data.id}</code>
+                    </div>`
+                console.log(resposta)
+            }  
             
-            console.log(resposta)
-        } catch(erro) {
+            document.getElementById("formulario").reset()
+
+            botao.textContent = "Criar Produto"
+            botao.classList.remove("btn-warning")
+            botao.classList.add("btn-primary")
+            carregarProdutos()
+          
+        } catch (erro) {
             alerta.innerHTML = 
                 `<div class="alert alert-danger">
                     Erro: ${erro.response?.data || "Falha ao exibir a mensagem"}
@@ -132,13 +157,6 @@
 
         try {    
             let resposta = await api.get("")
-
-
-            alerta.innerHTML =
-                `<div class="alert alert-success">
-                    Produto Criado! ID: <code>${resposta.data.id}</code>
-                </div>`
-            
             console.log(resposta.data)
             let produtos = resposta.data
             produtos.forEach(produto => {
@@ -148,6 +166,18 @@
                         <td>${produto.data.price}</td>
                         <td>${produto.data.quantity}</td>
                         <td><code>${produto.id}</code></td>
+                        <td>
+                            <button class="btn btn-sm btn-warning"
+                            onclick='editarProduto(${JSON.stringify(produto)})'
+                            >
+                                Editar
+                            </button>
+                            <button class="btn btn-sm btn-danger"
+                                onclick="excluirProduto('${produto.id}')"
+                            >
+                                Excluir
+                            </button>
+                        </td>
                     <tr>
                 `
                
@@ -155,7 +185,7 @@
             })
 
         } catch(erro) {
-            alerta.innerHTML =
+            alerta.innerHTML = 
                 `<div class="alert alert-danger">
                     Erro: ${erro.response?.data || "Falha ao exibir a mensagem"}
                 </div>`
@@ -163,5 +193,45 @@
 
     }
 
-    carregarProdutosOffline()
+    async function excluirProduto(id) {
+        if (!confirm("Tem certeza que deseja excluir o produto?")) return
+
+        try {
+            await api.delete(id)
+            alerta.innerHTML = 
+            `<div class="alert alert-success">
+                Produto Excluido com sucesso!</code>
+            </div>`
+            carregarProdutos()
+        } catch(erro) {
+             alerta.innerHTML = 
+                `<div class="alert alert-danger">
+                    Erro: ${erro || "Falha ao exibir a mensagem"}
+                </div>`
+        }
+
+    }
+
+    async function editarProduto(produto) {
+        console.log("Editar")
+        console.log(produto.name)
+        document.getElementById("nome").value = produto.name
+        document.getElementById("preco").value = produto.data.price
+        document.getElementById("quantidade").value = produto.data.quantity
+
+        botao.textContent = "Editar Produto"
+        botao.classList.remove("btn-primary")
+        botao.classList.add("btn-warning")
+
+        editandoId = produto.id
+        // Comando para mover a tela para o topo com uma transicao suave
+        window.scrollTo({top: 0, behavior: "smooth"})
+
+
+
+    }
+
+
+    carregarProdutos()
+
 </script>
